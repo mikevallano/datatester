@@ -45,6 +45,11 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.add_footer = true
+  end
+
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Raises error for missing translations
