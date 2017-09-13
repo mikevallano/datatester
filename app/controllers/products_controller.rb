@@ -4,7 +4,11 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product
+                .select("products.id, products.name, products.price, count(transactions.id) as transaction_count")
+                .joins(:transactions)
+                .includes(:categories)
+                .group('products.id, products.name').order('transaction_count desc')
   end
 
   # GET /products/1
