@@ -9,6 +9,16 @@ class ProductsController < ApplicationController
                 .joins(:transactions)
                 .includes(:categories)
                 .group('products.id, products.name').order('transaction_count desc')
+
+    # @products = Product
+    #   .select("
+    #     case
+    #       when price < 30 then 'Low'
+    #       when price between 30 and 69 then 'Medium'
+    #       when price >= 70 then 'High'
+    #       else 'Unknown'
+    #      end as price_tier, count(*)")
+    #   .group('price_tier')
   end
 
   # GET /products/1
