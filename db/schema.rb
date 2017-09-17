@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170910161141) do
+ActiveRecord::Schema.define(version: 20170917160722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,16 @@ ActiveRecord::Schema.define(version: 20170910161141) do
     t.decimal "price", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_products_on_name"
+  end
+
+  create_table "products_vendors", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "vendor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_products_vendors_on_product_id"
+    t.index ["vendor_id"], name: "index_products_vendors_on_vendor_id"
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -66,8 +76,17 @@ ActiveRecord::Schema.define(version: 20170910161141) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vendors", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "categories_products", "categories"
   add_foreign_key "categories_products", "products"
+  add_foreign_key "products_vendors", "products"
+  add_foreign_key "products_vendors", "vendors"
   add_foreign_key "transactions", "products"
   add_foreign_key "transactions", "users"
 end
