@@ -9,15 +9,25 @@ ActiveRecord::Base.transaction do
   end
 
   5.times do
+    vendor = Vendor.create(name: FFaker::Company.name)
+    puts "vendor created: #{vendor.name}"
+  end
+
+  5.times do
     category = Category.create(name: FFaker::Product.brand)
   end
 
-  10.times do |i|
+  20.times do |i|
     product = Product.create(
                             name: FFaker::Product.product_name,
                             price: rand(10.01..99.99))
     product.categories << Category.all.sample
     puts "product created: #{product.name}"
+  end
+
+  Product.all.each do |product|
+    product_vendor = ProductsVendor.create(product: product, vendor: Vendor.all.sample)
+    puts "product_vendor created: #{product_vendor}"
   end
 
   100.times do
