@@ -20,7 +20,8 @@ ActiveRecord::Base.transaction do
   20.times do |i|
     product = Product.create(
                             name: FFaker::Product.product_name,
-                            price: rand(10.01..99.99))
+                            price: rand(10.01..99.99),
+                            description: FFaker::Product.product)
     product.categories << Category.all.sample
     puts "product created: #{product.name}"
   end
