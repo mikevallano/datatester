@@ -2,10 +2,19 @@ require 'ffaker'
 
 ActiveRecord::Base.transaction do
   50.times do
-    user = User.create(
+    user = User.create!(
                         email: FFaker::Internet.email,
                         password: FFaker::Internet.password)
     puts "created user: #{user.email}"
+  end
+
+  managers = User.first(10)
+
+  non_managers = User.where.not(id: managers.pluck(:id))
+
+  non_managers.each do |non_manager|
+    non_manager.update(manager_id: managers.sample.id)
+    puts "manager assigned: #{non_manager.manager}"
   end
 
   5.times do
@@ -28,7 +37,7 @@ ActiveRecord::Base.transaction do
 
   Product.all.each do |product|
     product_vendor = ProductsVendor.create(product: product, vendor: Vendor.all.sample)
-    puts "product_vendor created: #{product_vendor}"
+    puts "product_vendor created: #{product_vendor.id}"
   end
 
   100.times do
