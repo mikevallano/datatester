@@ -8,7 +8,8 @@ class ProductsController < ApplicationController
                 .select("products.id, products.name, products.price, count(transactions.id) as transaction_count")
                 .joins(:transactions)
                 .includes(:categories)
-                .group('products.id, products.name').order('transaction_count desc')
+                .group('products.id, products.name')
+                .order('transaction_count desc')
 
     # @products = Product
     #   .select("
