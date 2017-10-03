@@ -41,10 +41,12 @@ ActiveRecord::Base.transaction do
   end
 
   100.times do
+    product_vendor = ProductsVendor.all.sample
     transaction = Transaction.create(
-                                      product_id: Product.all.sample.id,
+                                      product_id: product_vendor.product_id,
                                       user_id: User.all.sample.id,
-                                      ordered_at: (1..7).to_a.sample.days.ago.to_date)
+                                      ordered_at: (1..7).to_a.sample.days.ago.to_date,
+                                      vendor_id: product_vendor.vendor_id)
     puts "transaction created: #{transaction.id}"
   end
 
