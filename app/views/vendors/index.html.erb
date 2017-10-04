@@ -16,7 +16,7 @@
       <tr>
         <td><%= vendor.name %></td>
         <td><%= vendor.products.map(&:name).join(', ') %></td>
-        <td><%= vendor.transactions.count %></td>
+        <td><%= vendor.transactions_count %></td>
       </tr>
     <% end %>
   </tbody>

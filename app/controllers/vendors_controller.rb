@@ -1,10 +1,9 @@
 class VendorsController < ApplicationController
   def index
     @vendors = Vendor
-               .select('vendors.id, vendors.name, count(transactions.id) as transaction_count')
-               .joins(:transactions)
+               .select('vendors.id, vendors.name, vendors.transactions_count')
                .includes(:products)
                .group('vendors.id')
-               .order('transaction_count desc')
+               .order('vendors.transactions_count desc')
   end
 end
