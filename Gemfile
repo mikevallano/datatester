@@ -52,6 +52,8 @@ end
 
 group :development, :test do
   gem 'pry'
+  gem 'pry-rails'
+  gem 'pry-awesome_print'
   gem 'ffaker'
   gem 'awesome_print'
   gem 'rspec-rails', '~> 3.6'
